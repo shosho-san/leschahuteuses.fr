@@ -1,0 +1,8 @@
+Options -Indexes
+DirectoryIndex index.html
+
+RewriteEngine On
+
+RewriteRule ^admin/?$ admin/index.php [L,QSA]
+RewriteRule ^admin/(login|logout|setup)/?$ admin/index.php?action=$1 [L,QSA]
+RewriteRule ^api/(content|session|upload|instagram)/?$ api/index.php?route=$1 [L,QSA]

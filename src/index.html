@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Les Chahuteuses – Événements autour du corps et des sexualités joyeuses. Cabaret du Chahut, Paris." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Les Chahuteuses – pour une sexualité joyeuse !" />
+  <meta property="og:description" content="Événements autour du corps et des sexualités joyeuses. Cabaret, ateliers, scène ouverte à Paris." />
+  <meta property="og:image" content="https://www.leschahuteuses.fr/img/back_image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Les Chahuteuses – pour une sexualité joyeuse !</title>
+  <link rel="icon" type="image/png" href="img/logo.png" />
+  <link rel="preload" as="image" href="img/back_image.webp" type="image/webp" media="(min-width: 769px)" />
+  <link rel="preload" as="image" href="img/back_image-mobile.webp" type="image/webp" media="(max-width: 768px)" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:  #f4641b;
+      --orange2: #ff8c42;
+      --teal:    #00a896;
+      --teal2:   #02c5ad;
+      --violet:  #6b2fa0;
+      --violet2: #8b52c0;
+      --gold:    #f5a623;
+      --cream:   #fff9f5;
+      --dark:    #1a0a2e;
+      --text:    #2d1b00;
+      --muted:   #7a6050;
+      --font-h:  Didot, 'Bodoni 72', 'Bodoni MT', 'Times New Roman', serif;
+      --font-b:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --page-max: min(1180px, calc(100vw - 3rem));
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--text); font-family: var(--font-b); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 68px;
+      background: rgba(255,249,245,0);
+      transition: background .4s, box-shadow .4s;
+    }
+    nav.scrolled { background: rgba(255,249,245,.96); box-shadow: 0 1px 20px rgba(244,100,27,.12); backdrop-filter: blur(8px); }
+    .nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.55); text-decoration: none; font-size: .84rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; transition: color .2s; position: relative; padding-bottom: 2px; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transition: transform .25s; border-radius: 2px; }
+    nav.scrolled .nav-links a { color: var(--muted); text-shadow: none; }
+    .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+    .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta, nav.scrolled .nav-links .nav-cta { background: var(--orange); color: var(--dark) !important; text-shadow: none !important; padding: .4rem 1.1rem !important; border-radius: 20px; font-size: .82rem !important; transition: background .2s !important; }
+    .nav-cta:hover { background: var(--orange2) !important; color: var(--dark) !important; }
+    .nav-cta::after { display: none !important; }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: .3s; }
+    nav.scrolled .nav-burger span { background: var(--text); }
+
+    /* ── HERO ── */
+    #hero { position: relative; height: 100vh; min-height: 640px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('img/back_image.png') center / cover no-repeat; background: image-set(url('img/back_image.webp') type('image/webp'), url('img/back_image.png') type('image/png')) center / cover no-repeat; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(107,47,160,.75) 0%, rgba(244,100,27,.65) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 1.5rem; max-width: 800px; }
+    .hero-logo { width: 160px; height: auto; margin: 0 auto 1.5rem; display: block; filter: brightness(0) invert(1); opacity: 0; animation: fadeUp .6s .2s forwards; }
+    .hero-title { font-family: var(--font-h); font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.05; color: #fff; margin-bottom: 1rem; opacity: 0; animation: fadeUp .7s .5s forwards; text-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .hero-sub { font-size: clamp(1rem, 2.2vw, 1.2rem); color: rgba(255,255,255,.9); margin-bottom: 2rem; opacity: 0; animation: fadeUp .6s .8s forwards; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp .6s 1s forwards; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; font-size: .9rem; text-decoration: none; padding: .85rem 1.8rem; border-radius: 30px; transition: transform .2s, background .2s, box-shadow .2s; }
+    .btn-white { background: #fff; color: var(--violet); }
+    .btn-white:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .btn-outline-w { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.7); }
+    .btn-outline-w:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.6); font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: .4rem; animation: bounce 2s 1.5s infinite; opacity: 0; animation-fill-mode: forwards; }
+    .hero-scroll::after { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(255,255,255,.6), transparent); display: block; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce { 0%,100% { opacity:1; transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(7px); } }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 0; }
+    section > .reveal,
+    .about-grid,
+    .formats-grid,
+    #agenda-root,
+    .videos-grid,
+    .videos-empty,
+    .yt-cta,
+    .insta-block,
+    .benv-grid,
+    .footer-inner,
+    .footer-bottom {
+      width: var(--page-max);
+      max-width: var(--page-max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-label { font-size: .72rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; margin-bottom: .6rem; }
+    .section-title { font-family: var(--font-h); font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .section-divider { width: 48px; height: 3px; border-radius: 2px; margin-bottom: 2.5rem; }
+    .max-w { max-width: var(--page-max); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); }
+    .about-label { color: var(--orange); }
+    .about-title { color: var(--dark); }
+    .about-divider { background: var(--orange); }
+    .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: center; }
+    .about-text p { color: var(--muted); font-size: 1.05rem; line-height: 1.85; margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .value-card { background: #fff; border-radius: 16px; padding: 1.4rem; border: 1px solid rgba(244,100,27,.12); box-shadow: 0 2px 12px rgba(244,100,27,.06); }
+    .value-icon { font-size: 1.8rem; margin-bottom: .5rem; display: block; }
+    .value-title { font-weight: 700; font-size: .9rem; color: var(--dark); margin-bottom: .3rem; }
+    .value-desc { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FORMATS ── */
+    #formats { background: linear-gradient(135deg, #1a0a2e 0%, #2d1060 100%); }
+    .formats-label { color: var(--gold); }
+    .formats-title { color: #fff; }
+    .formats-divider { background: var(--gold); }
+    .formats-intro { color: rgba(255,255,255,.65); max-width: 600px; margin-bottom: 3rem; font-size: 1.02rem; line-height: 1.8; }
+    .formats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); gap: 2rem; }
+    .format-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 2.5rem; position: relative; overflow: hidden; transition: transform .3s, background .3s; }
+    .format-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .3s; border-radius: 20px; pointer-events: none; }
+    .format-card > * { position: relative; z-index: 1; }
+    .format-card.cabaret::before { background: radial-gradient(ellipse at top left, rgba(245,166,35,.1), transparent 60%); }
+    .format-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.1); }
+    .format-card:hover::before { opacity: 1; }
+    .format-emoji { font-size: 3rem; margin-bottom: 1.2rem; display: block; }
+    .format-badge { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: .25rem .8rem; border-radius: 20px; margin-bottom: 1rem; }
+    .badge-gold { background: rgba(245,166,35,.2); color: var(--gold); border: 1px solid rgba(245,166,35,.3); }
+    .format-title { font-family: var(--font-h); font-size: 1.7rem; color: #fff; margin-bottom: 1rem; }
+    .format-desc { color: rgba(255,255,255,.65); font-size: .95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .format-link { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; font-weight: 600; text-decoration: none; transition: gap .2s; }
+    .format-link.gold { color: var(--gold); }
+    .format-link:hover { gap: .7rem; }
+
+    /* ── ÉVÉNEMENT ── */
+    #evenement { background: var(--orange); }
+    .event-inner { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+    .event-label { color: rgba(255,255,255,.75); font-size: .72rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; margin-bottom: .6rem; }
+    .event-title { font-family: var(--font-h); font-size: clamp(2rem, 4vw, 3rem); color: #fff; margin-bottom: 1rem; line-height: 1.1; }
+    .event-details { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .event-chip { display: inline-flex; align-items: center; gap: .4rem; background: rgba(255,255,255,.2); color: #fff; font-size: .85rem; font-weight: 500; padding: .4rem .9rem; border-radius: 20px; }
+    .event-desc { color: rgba(255,255,255,.85); font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-event { background: #fff; color: var(--orange); font-weight: 700; }
+    .btn-event:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    .event-visual { text-align: center; font-size: 6rem; filter: drop-shadow(0 4px 20px rgba(0,0,0,.2)); }
+
+    /* ── VIDÉOS ── */
+    #videos { background: var(--dark); }
+    .videos-label { color: var(--teal2); }
+    .videos-title { color: #fff; }
+    .videos-divider { background: var(--teal); }
+    .videos-intro { color: rgba(255,255,255,.55); max-width: 580px; margin-bottom: 3rem; font-size: 1rem; line-height: 1.8; }
+    .videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .video-card { position: relative; display: block; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 16/9; text-decoration: none; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.24); }
+    .video-card.featured { grid-column: span 2; }
+    .video-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s, opacity .3s; }
+    .video-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.66)); z-index: 1; }
+    .video-card:hover img { transform: scale(1.035); opacity: .82; }
+    .video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; width: 58px; height: 40px; border-radius: 12px; background: #ff0000; display: grid; place-items: center; font-size: 1.2rem; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+    .video-title { position: absolute; left: 1rem; right: 1rem; bottom: .9rem; z-index: 2; font-size: .88rem; font-weight: 700; line-height: 1.35; text-shadow: 0 2px 10px rgba(0,0,0,.65); }
+    .video-card.featured .video-title { font-size: 1.05rem; }
+    .video-card[hidden] { display: none; }
+    .videos-empty { display: none; padding: 1.2rem 1.4rem; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.68); line-height: 1.7; }
+    .videos-empty.visible { display: block; }
+    .yt-cta { margin-top: 2.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-yt { background: #ff0000; color: #fff; display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; font-size: .9rem; padding: .85rem 1.8rem; border-radius: 30px; text-decoration: none; transition: background .2s, transform .2s; }
+    .btn-yt:hover { background: #cc0000; transform: translateY(-2px); }
+    .insta-block { margin-top: 4rem; }
+    .insta-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .insta-kicker { color: var(--teal2); font-size: .72rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: .35rem; }
+    .insta-title { color: #fff; font-family: var(--font-h); font-size: 2rem; line-height: 1.1; }
+    .insta-actions { display: flex; gap: .6rem; flex-shrink: 0; }
+    .insta-nav { width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 1.25rem; cursor: pointer; transition: background .2s, transform .2s; }
+    .insta-nav:hover { background: rgba(255,255,255,.16); transform: translateY(-1px); }
+    .insta-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 31%); gap: 1rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: .4rem; }
+    .insta-track::-webkit-scrollbar { display: none; }
+    .insta-card { position: relative; display: grid; grid-template-rows: auto 1fr; border-radius: 14px; overflow: hidden; text-decoration: none; color: #fff; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); scroll-snap-align: start; }
+    .insta-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; transition: transform .35s, opacity .35s; }
+    .insta-card:hover img { transform: scale(1.035); opacity: .86; }
+    .insta-body { min-height: 150px; padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end; }
+    .insta-tag { align-self: flex-start; margin-bottom: .7rem; padding: .25rem .65rem; border-radius: 999px; background: rgba(244,100,27,.18); color: var(--gold); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .insta-card strong { display: block; font-size: 1.05rem; line-height: 1.3; margin-bottom: .4rem; }
+    .insta-card span:last-child { color: rgba(255,255,255,.72); font-size: .86rem; line-height: 1.55; }
+    .insta-cta { margin-top: 1rem; display: inline-flex; align-items: center; color: var(--gold); font-weight: 700; text-decoration: none; }
+    .insta-cta:hover { color: #ffd98a; }
+
+    /* ── BÉNÉVOLAT ── */
+    #benevoles { background: var(--teal); }
+    .benv-label { color: rgba(255,255,255,.7); }
+    .benv-title { color: #fff; }
+    .benv-divider { background: rgba(255,255,255,.4); }
+    .benv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .benv-text p { color: rgba(255,255,255,.85); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.2rem; }
+    .benv-missions { display: flex; flex-direction: column; gap: .8rem; }
+    .mission { display: flex; align-items: flex-start; gap: .9rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); border-radius: 12px; padding: 1.1rem 1.3rem; }
+    .mission-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: .1rem; }
+    .mission-text strong { display: block; color: #fff; font-size: .95rem; margin-bottom: .2rem; }
+    .mission-text span { color: rgba(255,255,255,.7); font-size: .85rem; }
+    .btn-benv { background: #fff; color: var(--teal); font-weight: 700; }
+    .btn-benv:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); padding: 3rem 0; }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+    .footer-brand img { height: 56px; width: auto; margin-bottom: 1rem; filter: brightness(0) invert(1); opacity: .8; }
+    .footer-brand p { color: rgba(255,255,255,.78); font-size: .88rem; line-height: 1.7; }
+    .footer-col h3 { color: rgba(255,255,255,.9); font-size: .75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-col a { display: block; color: rgba(255,255,255,.78); text-decoration: none; font-size: .9rem; margin-bottom: .5rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--orange); }
+    .footer-social { display: flex; gap: .8rem; }
+    .social-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: background .2s, transform .2s; }
+    .social-btn:hover { background: var(--orange); transform: scale(1.1); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { color: rgba(255,255,255,.72); font-size: .8rem; }
+    .footer-admin-row { text-align: center; margin-top: 1.4rem; }
+    .footer-admin { color: rgba(255,255,255,.72); font-size: .76rem; text-decoration: none; letter-spacing: .6px; transition: color .2s; }
+    .footer-admin:hover { color: var(--orange); }
+
+    /* ── AGENDA (multi-événements) ── */
+    #agenda-root { margin: 0 auto; }
+    .event-empty { color: #fff; font-size: 1.1rem; line-height: 1.7; max-width: 600px; }
+    .event-photo { width: 260px; max-width: 42vw; border-radius: 16px; box-shadow: 0 12px 36px rgba(0,0,0,.3); display: block; }
+    .event-more { margin-top: 3rem; }
+    .event-more-title { color: rgba(255,255,255,.8); font-size: .8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .event-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 18px; padding: 1.8rem 2rem; margin-bottom: 1.3rem; }
+    .event-card .event-title { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+    .event-card-img { width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 1.3rem; display: block; }
+    .benv-lead { color: #fff; font-weight: 700; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .benv-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; background: rgba(255,249,245,.97); flex-direction: column; padding: 1.5rem 1.2rem; gap: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+      .nav-links.open { display: flex; }
+      .nav-links a { color: var(--muted); text-shadow: none; }
+      .nav-burger { display: flex; }
+      #hero { height: auto; min-height: 100svh; }
+      .hero-bg { background-image: url('img/back_image-mobile.webp'); background-position: center top; }
+      section { padding: 4rem 0; }
+      .videos-grid { grid-template-columns: 1fr 1fr; }
+      .video-card.featured { grid-column: span 2; }
+      .insta-head { align-items: flex-start; flex-direction: column; }
+      .insta-track { grid-auto-columns: minmax(230px, 46%); }
+      .event-inner { grid-template-columns: 1fr; }
+      .event-visual { display: none; }
+      .event-photo { width: 100%; max-width: 100%; margin-top: 1.5rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .videos-grid { grid-template-columns: 1fr; }
+      .video-card.featured { grid-column: span 1; }
+      .insta-track { grid-auto-columns: 88%; }
+      .about-values { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">
+      <img src="img/logo.png" alt="Les Chahuteuses" />
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeMenu()">À propos</a></li>
+      <li><a href="#formats" onclick="closeMenu()">Nos formats</a></li>
+      <li><a href="#evenement" onclick="closeMenu()">Agenda</a></li>
+      <li><a href="#videos" onclick="closeMenu()">Vidéos</a></li>
+      <li><a href="#benevoles" onclick="closeMenu()">Rejoins-nous</a></li>
+      <li><a href="https://leschahuteuses.us9.list-manage.com/subscribe?u=a6bd7fdcb256db092e9b8d572&id=af402a1306" target="_blank" rel="noopener" onclick="closeMenu()">Newsletter</a></li>
+      <li><a href="https://www.helloasso.com/associations/les-chahuteuses/evenements/cabaret-du-chahut-26" target="_blank" class="nav-cta">Billetterie →</a></li>
+    </ul>
+    <div class="nav-burger" id="burger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="img/logo.png" alt="Les Chahuteuses" class="hero-logo" />
+      <h1 class="hero-title" data-field="hero_title" data-multiline>Éducation populaire<br>autour des sexualités</h1>
+      <p class="hero-sub" data-field="hero_sub">Cabaret, ateliers, scène ouverte — dans un cadre bienveillant, inclusif et joyeux</p>
+      <div class="hero-btns">
+        <a href="#evenement" class="btn btn-white" data-field="hero_btn_event">🎭 Prochain événement</a>
+        <a href="#about" class="btn btn-outline-w" data-field="hero_btn_about">En savoir plus</a>
+      </div>
+    </div>
+    <div class="hero-scroll" data-field="hero_scroll">Découvrir</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label about-label" data-field="about_label">Qui sommes-nous ?</p>
+      <h2 class="section-title about-title" data-field="about_title">Les Chahuteuses</h2>
+      <div class="section-divider about-divider"></div>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p data-field="about_p1">Les Chahuteuses organisent des événements autour du corps et des sexualités joyeuses : ateliers, conférences interactives, soirées, programmation de festivals, expositions…</p>
+        <p data-field="about_p2">Depuis 2014, nous créons des espaces où l'intime se fait visible, où les corps, les désirs, les peurs et le cœur s'expriment avec sincérité — dans un cadre éthique explicite fondé sur le consentement, l'écoute et le non-jugement.</p>
+        <p data-field="about_p3">De l'humain, du cœur, de l'intensité… et du cul ! Avec une équipe présente et bienveillante, attentive aux dynamiques relationnelles.</p>
+      </div>
+      <div class="about-values">
+        <div class="value-card">
+          <span class="value-icon">🌈</span>
+          <div class="value-title" data-field="about_value1_title">Inclusivité</div>
+          <p class="value-desc" data-field="about_value1_desc">Ouvert à toustes, quels que soient le genre, l'orientation ou le statut social.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">💬</span>
+          <div class="value-title" data-field="about_value2_title">Consentement</div>
+          <p class="value-desc" data-field="about_value2_desc">Un cadre éthique explicite, toujours. L'accord de chacun·e, avant tout.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🎭</span>
+          <div class="value-title" data-field="about_value3_title">Éducation populaire</div>
+          <p class="value-desc" data-field="about_value3_desc">Des formats vivants et accessibles pour parler de sexualité autrement.</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">🤍</span>
+          <div class="value-title" data-field="about_value4_title">Bienveillance</div>
+          <p class="value-desc" data-field="about_value4_desc">Un espace sécurisant où la parole se libère et les témoignages émergent.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATS — cartes rendues par js/site.js depuis /api/content -->
+  <section id="formats">
+    <div class="reveal">
+      <p class="section-label formats-label" data-field="formats_label">Ce qu'on organise</p>
+      <h2 class="section-title formats-title" data-field="formats_title">Nos formats</h2>
+      <div class="section-divider formats-divider"></div>
+      <p class="formats-intro" data-field="formats_intro">Un format signature, une même intention : créer des espaces où l'on se reconnecte à soi et aux autres.</p>
+    </div>
+    <div class="formats-grid" id="formats-root">
+      <div class="format-card cabaret reveal">
+        <span class="format-emoji">🎤</span>
+        <span class="format-badge badge-gold">Tous les 2 mois · Paris</span>
+        <h3 class="format-title">Le Cabaret du Chahut</h3>
+        <p class="format-desc">Des humain·e·s comme toi partagent des bouts de vie qu'on a rarement la chance d'entendre — des témoignages intimes, touchants, parfois drôles, toujours vrais. Sur scène, à la première personne, l'intime se fait visible.</p>
+        <p class="format-desc">Entre rires et émotions, la soirée invite à ressentir, à se reconnaître, et à laisser l'intime résonner dans le collectif. À la mythique salle du Forum de la Bellevilloise.</p>
+        <a href="https://www.helloasso.com/associations/les-chahuteuses/evenements/cabaret-du-chahut-26" target="_blank" class="format-link gold">Réserver ma place →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉVÉNEMENT / AGENDA — rendu par js/site.js depuis /api/content -->
+  <section id="evenement">
+    <div id="agenda-root">
+      <div class="event-inner reveal">
+        <div>
+          <p class="event-label">À venir</p>
+          <h2 class="event-title">Histoires de Q — Le Cabaret des Chahuteuses</h2>
+          <div class="event-details">
+            <span class="event-chip">📅 Vendredi 22 mai 2026</span>
+            <span class="event-chip">🕖 19h00 – 21h45</span>
+            <span class="event-chip">📍 La Bellevilloise, Paris 20e</span>
+            <span class="event-chip">♿ Accessible PMR</span>
+          </div>
+          <p class="event-desc">
+            Une soirée engagée, entre cabaret, stand-up et scène ouverte. Sur scène, des artistes confirmé·es et des voix amatrices partagent leurs parcours de sexualité — avec sincérité, humour et bienveillance.
+          </p>
+          <a href="https://www.helloasso.com/associations/les-chahuteuses/evenements/cabaret-du-chahut-26" target="_blank" class="btn btn-event">🎟️ Billetterie HelloAsso</a>
+        </div>
+        <div class="event-visual">🎭</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDÉOS -->
+  <section id="videos">
+    <div class="reveal">
+      <p class="section-label videos-label" data-field="videos_label">Sur YouTube</p>
+      <h2 class="section-title videos-title" data-field="videos_title">Nos vidéos</h2>
+      <div class="section-divider videos-divider"></div>
+      <p class="videos-intro" data-field="videos_intro">Des témoignages du Cabaret du Chahut — retrouvez les histoires partagées sur scène lors de nos éditions précédentes.</p>
+    </div>
+    <div class="videos-grid">
+      <a class="video-card featured reveal" href="https://www.youtube.com/watch?v=9qhgxQIDZmM" target="_blank" rel="noopener" data-published="2026-04-23">
+        <img src="https://i.ytimg.com/vi/9qhgxQIDZmM/hqdefault.jpg" alt="HdQ 27 - LaRude" loading="lazy">
+        <span class="video-play" aria-hidden="true">▶</span>
+        <span class="video-title">HdQ 27 - LaRude</span>
+      </a>
+      <a class="video-card reveal" href="https://www.youtube.com/watch?v=nf0H7gtIDZE" target="_blank" rel="noopener" data-published="2026-04-23">
+        <img src="https://i.ytimg.com/vi/nf0H7gtIDZE/hqdefault.jpg" alt="HdQ 27 - Zohra l'exploratrice" loading="lazy">
+        <span class="video-play" aria-hidden="true">▶</span>
+        <span class="video-title">HdQ 27 - Zohra l'exploratrice</span>
+      </a>
+      <a class="video-card reveal" href="https://www.youtube.com/watch?v=0yER2yZAcUE" target="_blank" rel="noopener" data-published="2026-04-23">
+        <img src="https://i.ytimg.com/vi/0yER2yZAcUE/hqdefault.jpg" alt="HdQ 27 - Pauline" loading="lazy">
+        <span class="video-play" aria-hidden="true">▶</span>
+        <span class="video-title">HdQ 27 - Pauline</span>
+      </a>
+      <a class="video-card reveal" href="https://www.youtube.com/watch?v=inTLkY1iiOw" target="_blank" rel="noopener" data-published="2026-04-22">
+        <img src="https://i.ytimg.com/vi/inTLkY1iiOw/hqdefault.jpg" alt="HdQ 27 - Féerosse" loading="lazy">
+        <span class="video-play" aria-hidden="true">▶</span>
+        <span class="video-title">HdQ 27 - Féerosse</span>
+      </a>
+      <a class="video-card reveal" href="https://www.youtube.com/watch?v=v0uOS1MsMU4" target="_blank" rel="noopener" data-published="2026-04-22">
+        <img src="https://i.ytimg.com/vi/v0uOS1MsMU4/hqdefault.jpg" alt="HdQ 27 - Djou et Freya" loading="lazy">
+        <span class="video-play" aria-hidden="true">▶</span>
+        <span class="video-title">HdQ 27 - Djou et Freya</span>
+      </a>
+    </div>
+    <p class="videos-empty reveal" id="videos-empty">Aucune vidéo publiée depuis moins d'un an pour le moment. Les anciennes vidéos restent disponibles sur la chaîne YouTube.</p>
+    <div class="yt-cta reveal">
+      <a href="https://www.youtube.com/@LesChahuteuses" target="_blank" rel="noopener" class="btn-yt" data-field="videos_btn">▶ S'abonner à la chaîne YouTube</a>
+    </div>
+    <div class="insta-block reveal" aria-labelledby="insta-title">
+      <div class="insta-head">
+        <div>
+          <p class="insta-kicker">Sur Instagram</p>
+          <h3 class="insta-title" id="insta-title">Dans les coulisses</h3>
+        </div>
+        <div class="insta-actions" aria-label="Navigation du carrousel Instagram">
+          <button class="insta-nav" type="button" data-insta-prev aria-label="Publication précédente">‹</button>
+          <button class="insta-nav" type="button" data-insta-next aria-label="Publication suivante">›</button>
+        </div>
+      </div>
+      <div class="insta-track" id="insta-track">
+        <a class="insta-card" href="https://www.instagram.com/histoiresdeq/p/DYkJtKmt_o-/" target="_blank" rel="noopener">
+          <img src="https://scontent-cdg4-2.cdninstagram.com/v/t51.82787-15/704247454_18120221644709693_8281258221427833093_n.jpg?stp=c270.0.810.810a_dst-jpg_e35_s640x640_tt6&amp;_nc_cat=107&amp;ccb=7-5&amp;_nc_sid=18de74&amp;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&amp;_nc_ohc=f6Tq8UU-sckQ7kNvwGVhTmH&amp;_nc_oc=AdrWYFpY4nldxYyI4f7y4kvs6gsxBD5HeVNI68wyEaibBXzNU3UKFM_x484j0M4UEsM&amp;_nc_zt=23&amp;_nc_ht=scontent-cdg4-2.cdninstagram.com&amp;_nc_gid=YzgOgToM4O0b-_lNcbbFBw&amp;_nc_ss=7d60f&amp;oh=00_Af5sXuFvp_mmu6I4Ej6qqdtiaUGanVl0Jk0no6CSHKc5_A&amp;oe=6A14E4E3" alt="Publication Instagram Histoires de Q - dernières places disponibles" loading="lazy">
+          <span class="insta-body">
+            <span class="insta-tag">20 mai 2026</span>
+            <strong>Dernières places disponibles pour Histoires de Q n°28</strong>
+            <span>Programmation du cabaret du vendredi 22 mai à La Bellevilloise.</span>
+          </span>
+        </a>
+      </div>
+      <a class="insta-cta" href="https://www.instagram.com/histoiresdeq/" target="_blank" rel="noopener">Voir le compte Instagram →</a>
+    </div>
+  </section>
+
+  <!-- BÉNÉVOLAT -->
+  <section id="benevoles">
+    <div class="reveal">
+      <p class="section-label benv-label" data-field="benevolat_label">On a besoin de toi</p>
+      <h2 class="section-title benv-title" data-field="benevolat_title">Rejoins l'aventure</h2>
+      <div class="section-divider benv-divider"></div>
+    </div>
+    <div class="benv-grid">
+      <div class="benv-text reveal">
+        <p class="benv-lead" data-field="benevolat_lead">Tu veux contribuer à des projets qui ont du sens ?</p>
+        <p data-field="benevolat_p1">Les Chahuteuses, c'est une aventure humaine collective portée par des bénévoles engagé·es.</p>
+        <p data-field="benevolat_p2">Tu rejoins un groupe soudé et bienveillant, tu affines tes compétences, tu en découvres de nouvelles — et tu participes à quelque chose de rare et de précieux.</p>
+        <a href="mailto:leschahuteuses@gmail.com" class="btn btn-benv" data-field="benevolat_btn">✉️ Envoyer un message de motivation</a>
+      </div>
+      <div class="benv-missions reveal">
+        <div class="mission">
+          <span class="mission-icon">📸</span>
+          <div class="mission-text">
+            <strong data-field="benevolat_mission1_title">Captation vidéo & montage</strong>
+            <span data-field="benevolat_mission1_desc">Filmer et monter les soirées du Cabaret</span>
+          </div>
+        </div>
+        <div class="mission">
+          <span class="mission-icon">🎨</span>
+          <div class="mission-text">
+            <strong data-field="benevolat_mission2_title">Graphisme & création de contenu</strong>
+            <span data-field="benevolat_mission2_desc">Visuels réseaux sociaux, affiches, communication</span>
+          </div>
+        </div>
+        <div class="mission">
+          <span class="mission-icon">🤝</span>
+          <div class="mission-text">
+            <strong data-field="benevolat_mission3_title">Accueil & logistique</strong>
+            <span data-field="benevolat_mission3_desc">Accompagner le public lors des événements</span>
+          </div>
+        </div>
+        <div class="mission">
+          <span class="mission-icon">🐱</span>
+          <div class="mission-text">
+            <strong data-field="benevolat_mission4_title">Félin·e (support émotionnel)</strong>
+            <span data-field="benevolat_mission4_desc">Veiller au bien-être des participant·es pendant les soirées</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/logo.png" alt="Les Chahuteuses" />
+        <p data-field="footer_brand_text" data-multiline>Association loi 1901 fondée en 2014.<br>Pour une sexualité joyeuse, éclairée et bienveillante.</p>
+        <br>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/histoiresdeq/" target="_blank" rel="noopener" class="social-btn">📸</a>
+          <a href="https://www.facebook.com/leschahuteuses" target="_blank" rel="noopener" class="social-btn">👥</a>
+          <a href="https://www.youtube.com/@LesChahuteuses" target="_blank" rel="noopener" class="social-btn">▶</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3 data-field="footer_col1_title">Formats</h3>
+        <a href="#formats">Le Cabaret du Chahut</a>
+        <a href="#evenement">Agenda</a>
+      </div>
+      <div class="footer-col">
+        <h3 data-field="footer_col2_title">Contact</h3>
+        <a href="mailto:leschahuteuses@gmail.com">leschahuteuses@gmail.com</a>
+        <a href="#benevoles">Bénévolat</a>
+        <a href="https://www.helloasso.com/associations/les-chahuteuses/evenements/cabaret-du-chahut-26" target="_blank">Billetterie</a>
+        <a href="https://leschahuteuses.us9.list-manage.com/subscribe?u=a6bd7fdcb256db092e9b8d572&id=af402a1306" target="_blank" rel="noopener">Newsletter</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy" data-field="footer_copy_left">© 2026 Les Chahuteuses · Association loi 1901 · Paris</span>
+      <span class="footer-copy" data-field="footer_copy_right">Pour une sexualité joyeuse ! 🌈</span>
+    </div>
+    <div class="footer-admin-row">
+      <a href="/admin" class="footer-admin" rel="nofollow">✏️ Espace édition</a>
+    </div>
+  </footer>
+
+  <script src="js/site.js?v=7" defer></script>
+</body>
+</html>

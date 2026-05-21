@@ -1,0 +1,15 @@
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Back-office PHP OVH
+src/private/*
+!src/private/.htaccess
+src/uploads/*
+!src/uploads/.htaccess
+node_modules/
+*.log
