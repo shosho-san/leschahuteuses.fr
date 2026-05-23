@@ -47,7 +47,9 @@ if ($route === 'instagram' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $cacheFile = co_private_dir() . '/instagram-cache.json';
     $configFile = co_private_dir() . '/instagram.php';
 
-    if (is_file($cacheFile)) {
+    $bypassCache = isset($_GET['refresh']) && co_is_authed();
+
+    if (!$bypassCache && is_file($cacheFile)) {
         $cached = json_decode((string) file_get_contents($cacheFile), true);
         $maxAge = is_array($cached) ? (int) ($cached['cache_ttl'] ?? 3600) : 3600;
         $fetchedAt = is_array($cached) ? strtotime((string) ($cached['fetched_at'] ?? '')) : false;
@@ -67,7 +69,10 @@ if ($route === 'instagram' && $_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $limit = max(1, min(12, (int) ($config['limit'] ?? 6)));
     $ttl = max(300, (int) ($config['cache_ttl'] ?? 3600));
-    $endpoint = 'https://graph.facebook.com/v20.0/' . rawurlencode((string) $config['ig_user_id']) . '/media'
+    $graphVersion = preg_match('/^v\d+\.\d+$/', (string) ($config['graph_version'] ?? ''))
+        ? (string) $config['graph_version']
+        : 'v20.0';
+    $endpoint = 'https://graph.facebook.com/' . $graphVersion . '/' . rawurlencode((string) $config['ig_user_id']) . '/media'
         . '?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp'
         . '&limit=' . $limit
         . '&access_token=' . rawurlencode((string) $config['access_token']);
@@ -116,7 +121,12 @@ if ($route === 'instagram' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     } catch (Throwable $e) {
         if (is_file($cacheFile)) {
             $cached = json_decode((string) file_get_contents($cacheFile), true);
-            if (is_array($cached)) co_json_response($cached);
+            if (is_array($cached)) {
+                $cached['source'] = 'stale_cache';
+                $cached['stale'] = true;
+                $cached['error'] = $e->getMessage();
+                co_json_response($cached);
+            }
         }
         co_json_response($fallback);
     }

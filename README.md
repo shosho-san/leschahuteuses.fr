@@ -106,12 +106,15 @@ return [
   'access_token' => 'TOKEN_META_LONG_LIVED',
   'limit' => 6,
   'cache_ttl' => 3600,
+  'graph_version' => 'v20.0',
 ];
 ```
 
 Le token reste côté serveur. PHP met les résultats en cache dans
 `src/private/instagram-cache.json`. Si la configuration manque ou si l'API échoue,
-le site garde une carte de secours.
+le site garde une carte de secours ou l'ancien cache marqué `stale_cache`. Une
+éditrice connectée peut forcer une tentative de rafraîchissement avec
+`/api/instagram?refresh=1`.
 
 ## Liens externes
 
