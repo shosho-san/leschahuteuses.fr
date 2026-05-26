@@ -1,14 +1,8 @@
 # Les Chahuteuses — site vitrine
 
-Site vitrine de l'association **Les Chahuteuses**.
+Refonte du site de l'association **Les Chahuteuses**.
 Site mono-page HTML/CSS/JS vanilla avec un petit back-office PHP 8 compatible
 hébergement web OVH mutualisé.
-
-Branches actives :
-
-- `main` : branche principale / production ;
-- `rec` : branche de recette ;
-- `vitrine2026` : ancienne branche de travail, fermée après intégration dans `main` et `rec`.
 
 ## Démarrage rapide
 
@@ -22,36 +16,12 @@ python3 -m http.server -d src 8080
 Le mode édition `/admin` nécessite PHP et les règles Apache `.htaccess`; il est
 prévu pour être testé directement sur l'hébergement OVH.
 
-## Workflow Git
-
-Le site est maintenu directement depuis `main` et `rec`.
-
-```bash
-git switch main
-git pull origin main
-
-# modification des fichiers
-git add -A
-git commit -m "Description du changement"
-
-git push origin main
-git switch rec
-git merge --ff-only main
-git push origin rec
-```
-
-Avant de pousser, vérifier l'état local :
-
-```bash
-git status --short --branch
-```
-
 ## Déploiement OVH
 
-Le domaine ou sous-domaine doit pointer vers `src/`, par exemple :
+Le sous-domaine doit pointer vers `src/`, par exemple :
 
 ```text
-./leschahuteuses.fr/src
+./vitrine2026/src
 ```
 
 Fichiers importants pour OVH :
@@ -76,9 +46,9 @@ modifications faites directement sur le site.
 Après déploiement, vérifier :
 
 ```text
-https://<domaine>/
-https://<domaine>/admin
-https://<domaine>/api/session
+https://vitrine2026.les-chahuteuses.fr/
+https://vitrine2026.les-chahuteuses.fr/admin
+https://vitrine2026.les-chahuteuses.fr/api/session
 ```
 
 PHP doit pouvoir écrire dans :
@@ -106,21 +76,12 @@ return [
   'access_token' => 'TOKEN_META_LONG_LIVED',
   'limit' => 6,
   'cache_ttl' => 3600,
-  'graph_version' => 'v20.0',
 ];
 ```
 
 Le token reste côté serveur. PHP met les résultats en cache dans
 `src/private/instagram-cache.json`. Si la configuration manque ou si l'API échoue,
-le site garde une carte de secours ou l'ancien cache marqué `stale_cache`. Une
-éditrice connectée peut forcer une tentative de rafraîchissement avec
-`/api/instagram?refresh=1`.
-
-## Liens externes
-
-- Billetterie HelloAsso : lien direct dans la navigation, l'agenda et le footer.
-- Newsletter Mailchimp : lien direct dans la navigation et le footer, ouvert dans un nouvel onglet.
-- YouTube et réseaux sociaux : liens publics depuis la page.
+le site garde une carte de secours.
 
 ## Structure
 

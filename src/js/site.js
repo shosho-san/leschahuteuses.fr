@@ -270,7 +270,7 @@
     var track = document.getElementById('insta-track');
     if (!track) return Promise.resolve();
 
-    return fetch('/api/instagram?_=' + Date.now(), { cache: 'no-store' })
+    return fetch('/api/instagram', { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('instagram'); return r.json(); })
       .then(function (data) {
         var posts = Array.isArray(data && data.posts) ? data.posts : [];
