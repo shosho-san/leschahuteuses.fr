@@ -3,6 +3,16 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow" "expr=%{HTTP_HOST} != 'www.leschahuteuses.fr'"
+</IfModule>
+
+RewriteCond %{HTTP_HOST} !^www\.leschahuteuses\.fr$ [NC]
+RewriteRule ^robots\.txt$ robots-recette.txt [L]
+
+RewriteCond %{HTTP_HOST} !^www\.leschahuteuses\.fr$ [NC]
+RewriteRule ^sitemap\.xml$ - [R=404,L]
+
 RewriteRule ^le-cabaret-du-chahut/?$ /#formats [R=301,L,NE]
 RewriteRule ^nos-formats/le-cabaret-du-chahut/?$ /#formats [R=301,L,NE]
 
