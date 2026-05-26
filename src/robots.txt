@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /lib/
+Disallow: /private/
+
+Sitemap: https://www.leschahuteuses.fr/sitemap.xml

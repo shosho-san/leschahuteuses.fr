@@ -100,6 +100,110 @@
     return img;
   }
 
+  function isoDateTime(date, time) {
+    if (!date) return null;
+    return date + 'T' + (time || '00:00') + ':00+02:00';
+  }
+
+  function eventPlace(ev) {
+    var venue = ev.venue || 'Paris';
+    if (/bellevilloise/i.test(venue)) {
+      return {
+        '@type': 'Place',
+        name: 'La Bellevilloise',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '19-21 Rue Boyer',
+          postalCode: '75020',
+          addressLocality: 'Paris',
+          addressCountry: 'FR'
+        }
+      };
+    }
+    return {
+      '@type': 'Place',
+      name: venue,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Paris',
+        addressCountry: 'FR'
+      }
+    };
+  }
+
+  function seoEvent(ev) {
+    return {
+      '@type': 'Event',
+      '@id': 'https://www.leschahuteuses.fr/#' + (ev.id || ev.date || 'event'),
+      name: ev.title || 'Événement Les Chahuteuses',
+      description: ev.description || 'Événement autour du corps, du consentement et des sexualités joyeuses à Paris.',
+      startDate: isoDateTime(ev.date, ev.timeStart),
+      endDate: isoDateTime(ev.date, ev.timeEnd || ev.timeStart),
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: eventPlace(ev),
+      image: ev.image || 'https://www.leschahuteuses.fr/img/back_image.png',
+      organizer: {
+        '@id': 'https://www.leschahuteuses.fr/#organization'
+      },
+      offers: ev.ticketUrl ? {
+        '@type': 'Offer',
+        url: ev.ticketUrl,
+        availability: 'https://schema.org/InStock'
+      } : undefined,
+      isAccessibleForFree: false
+    };
+  }
+
+  function renderStructuredData() {
+    var node = document.getElementById('seo-jsonld');
+    if (!node) return;
+    var graph = [
+      {
+        '@type': 'Organization',
+        '@id': 'https://www.leschahuteuses.fr/#organization',
+        name: 'Les Chahuteuses',
+        url: 'https://www.leschahuteuses.fr/',
+        logo: 'https://www.leschahuteuses.fr/img/logo.png',
+        foundingDate: '2014',
+        description: 'Association d\'éducation populaire qui organise à Paris des cabarets, ateliers et événements autour du corps, du consentement et des sexualités joyeuses.',
+        email: 'leschahuteuses@gmail.com',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Paris',
+          addressCountry: 'FR'
+        },
+        sameAs: [
+          'https://www.instagram.com/histoiresdeq/',
+          'https://www.facebook.com/leschahuteuses',
+          'https://www.youtube.com/@LesChahuteuses'
+        ]
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.leschahuteuses.fr/#website',
+        url: 'https://www.leschahuteuses.fr/',
+        name: 'Les Chahuteuses',
+        inLanguage: 'fr-FR',
+        publisher: { '@id': 'https://www.leschahuteuses.fr/#organization' }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://www.leschahuteuses.fr/#breadcrumb',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Accueil',
+            item: 'https://www.leschahuteuses.fr/'
+          }
+        ]
+      }
+    ];
+    upcomingEvents().forEach(function (ev) { graph.push(seoEvent(ev)); });
+    node.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+  }
+
   // Premier événement — bloc mis en avant
   function featuredEvent(ev) {
     var inner = el('div', 'event-inner reveal');
@@ -180,6 +284,7 @@
     renderTexts();
     renderAgenda();
     renderFormats();
+    renderStructuredData();
   }
 
   // ── Animations « reveal » ─────────────────────────────────────────────────

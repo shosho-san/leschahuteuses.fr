@@ -1,30 +1,5 @@
 {
-  "events": [
-    {
-      "id": "evt-cabaret-2026-05",
-      "title": "Histoires de Q — Le Cabaret des Chahuteuses",
-      "date": "2026-05-22",
-      "timeStart": "19:00",
-      "timeEnd": "21:45",
-      "venue": "La Bellevilloise, Paris 20e",
-      "accessible": true,
-      "ticketUrl": "https://www.helloasso.com/associations/les-chahuteuses/evenements/cabaret-du-chahut-26",
-      "image": "",
-      "description": "Une soirée engagée, entre cabaret, stand-up et scène ouverte. Sur scène, des artistes confirmé·es et des voix amatrices partagent leurs parcours de sexualité — avec sincérité, humour et bienveillance."
-    },
-    {
-      "id": "evt-snvyydh5",
-      "title": "Nouvel événement 2",
-      "date": "2026-05-30",
-      "timeStart": "19:00",
-      "timeEnd": "21:24",
-      "venue": "paris",
-      "accessible": true,
-      "ticketUrl": "",
-      "image": "",
-      "description": "blabla"
-    }
-  ],
+  "events": [],
   "formats": [
     {
       "id": "fmt-cabaret",
@@ -32,17 +7,8 @@
       "badge": "Tous les 2 mois · Paris",
       "title": "Le Cabaret du Chahut",
       "description": "Des humain·e·s comme toi partagent des bouts de vie qu'on a rarement la chance d'entendre — des témoignages intimes, touchants, parfois drôles, toujours vrais. Sur scène, à la première personne, l'intime se fait visible.\nEntre rires et émotions, la soirée invite à ressentir, à se reconnaître, et à laisser l'intime résonner dans le collectif. À la mythique salle du Forum de la Bellevilloise.",
-      "linkText": "Réserver ma place →",
-      "linkUrl": "https://www.helloasso.com/associations/les-chahuteuses/evenements/cabaret-du-chahut-26"
-    },
-    {
-      "id": "fmt-jed7c87d",
-      "emoji": "🎉",
-      "badge": "unique",
-      "title": "Nouveau format unique",
-      "description": "ca a l'air cool",
-      "linkText": "En savoir plus →",
-      "linkUrl": ""
+      "linkText": "Voir les prochaines dates →",
+      "linkUrl": "#evenement"
     }
   ],
   "texts": {
@@ -77,7 +43,7 @@
     "benevolat_p1": "Les Chahuteuses, c'est une aventure humaine collective portée par des bénévoles engagé·es.",
     "benevolat_p2": "Tu rejoins un groupe soudé et bienveillant, tu affines tes compétences, tu en découvres de nouvelles — et tu participes à quelque chose de rare et de précieux.",
     "benevolat_btn": "✉️ Envoyer un message de motivation",
-    "benevolat_mission1_title": "Captation d& montage",
+    "benevolat_mission1_title": "Captation vidéo & montage",
     "benevolat_mission1_desc": "Filmer et monter les soirées du Cabaret",
     "benevolat_mission2_title": "Graphisme & création de contenu",
     "benevolat_mission2_desc": "Visuels réseaux sociaux, affiches, communication",
