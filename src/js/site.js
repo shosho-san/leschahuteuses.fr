@@ -63,11 +63,34 @@
       .sort(function (a, b) { return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
   }
 
+  function nextTicketEvent() {
+    return upcomingEvents().filter(function (e) { return e.ticketUrl; })[0] || null;
+  }
+
   // ── Rendu ─────────────────────────────────────────────────────────────────
   function renderTexts() {
     document.querySelectorAll('[data-field]').forEach(function (node) {
       var key = node.getAttribute('data-field');
       if (content.texts[key] != null) setField(node, content.texts[key]);
+    });
+  }
+
+  function renderTicketLinks() {
+    var ev = nextTicketEvent();
+    document.querySelectorAll('[data-ticket-link]').forEach(function (link) {
+      if (ev) {
+        link.href = ev.ticketUrl;
+        link.textContent = link.classList.contains('format-link') ? 'Billetterie →' : 'Billetterie';
+        if (link.classList.contains('nav-cta')) link.textContent = 'Billetterie →';
+        link.target = '_blank';
+        link.rel = 'noopener';
+      } else {
+        link.href = '#evenement';
+        link.textContent = link.classList.contains('format-link') ? 'Prochaines dates →' : 'Billetterie';
+        if (link.classList.contains('nav-cta')) link.textContent = 'Billetterie →';
+        link.removeAttribute('target');
+        link.removeAttribute('rel');
+      }
     });
   }
 
@@ -267,6 +290,7 @@
     if (fmt.linkUrl && fmt.linkText) {
       var a = el('a', 'format-link gold', fmt.linkText);
       a.href = fmt.linkUrl;
+      if (fmt.linkUrl === '#evenement') a.setAttribute('data-ticket-link', '');
       if (/^https?:/i.test(fmt.linkUrl)) { a.target = '_blank'; a.rel = 'noopener'; }
       card.appendChild(a);
     }
@@ -285,6 +309,7 @@
     renderAgenda();
     renderFormats();
     renderStructuredData();
+    renderTicketLinks();
   }
 
   // ── Animations « reveal » ─────────────────────────────────────────────────
