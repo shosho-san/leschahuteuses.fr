@@ -330,7 +330,10 @@
   <!-- NAV -->
   <nav id="navbar">
     <a href="#hero" class="nav-logo">
-      <img src="img/logo-320.png" alt="Les Chahuteuses" width="320" height="226" />
+      <picture>
+        <source srcset="img/logo-280.webp" type="image/webp" />
+        <img src="img/logo-280.png" alt="Les Chahuteuses" width="280" height="198" fetchpriority="high" decoding="async" />
+      </picture>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about" onclick="closeMenu()">À propos</a></li>
@@ -538,7 +541,10 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="img/logo-320.png" alt="Les Chahuteuses" width="320" height="226" />
+        <picture>
+          <source srcset="img/logo-280.webp" type="image/webp" />
+          <img src="img/logo-280.png" alt="Les Chahuteuses" width="280" height="198" loading="lazy" decoding="async" />
+        </picture>
         <p data-field="footer_brand_text" data-multiline>Association loi 1901 fondée en 2014.<br>Pour une sexualité joyeuse, éclairée et bienveillante.</p>
         <br>
         <div class="footer-social">
