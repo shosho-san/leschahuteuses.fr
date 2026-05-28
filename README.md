@@ -64,6 +64,21 @@ La section Instagram est volontairement simple : elle affiche un lien direct ver
 le compte `@histoiresdeq`. Le site n'appelle plus l'API Graph Meta et ne dépend
 plus de token, cache serveur ou URL d'image Instagram temporaire.
 
+## Performance et cache
+
+Les assets statiques sont servis avec un cache long via `src/.htaccess`. À chaque
+modification de `src/js/site.js`, incrémenter la version appelée dans
+`src/index.html` (`js/site.js?v=...`) pour forcer les navigateurs à récupérer le
+nouveau fichier.
+
+Images principales :
+
+- `src/img/logo-280.webp` — logo affiché dans la page ;
+- `src/img/logo-280.png` — fallback PNG, favicon et logo JSON-LD ;
+- `src/img/back_image.webp` — fond hero desktop ;
+- `src/img/back_image-mobile.webp` — fond hero mobile ;
+- `src/img/back_image.png` — fallback CSS et image Open Graph/Twitter.
+
 ## Structure
 
 - `src/index.html` — page publique

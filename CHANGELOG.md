@@ -1,5 +1,29 @@
 # Changelog — Les Chahuteuses
-test
+
+## 2026-05-28
+
+### SEO, performance et nettoyage des images
+- Ajout de métadonnées SEO complètes : description, canonical, Open Graph,
+  Twitter Card, robots, JSON-LD `Organization`/`WebSite`/`BreadcrumbList` et
+  sitemap public.
+- Ajout des règles de production dans `src/.htaccess` : redirection canonique
+  vers `https://www.leschahuteuses.fr/`, `X-Robots-Tag` en `noindex,nofollow`
+  hors domaine public, robots/sitemap spécifiques pour les environnements de
+  recette, et cache long des assets statiques.
+- Optimisation du logo LCP : création de `src/img/logo-280.webp` avec fallback
+  `src/img/logo-280.png`, utilisation de `<picture>`, ajout de
+  `fetchpriority="high"` sur le logo de navigation et `loading="lazy"` sur le
+  logo du footer.
+- Nettoyage des anciennes variantes de logo devenues inutiles :
+  `src/img/logo.png` et `src/img/logo-320.png` supprimés.
+- Version du script public passée à `site.js?v=10` pour contourner le cache long
+  après modification de `src/js/site.js`.
+- Correction du rendu agenda sans événement futur : le rendu dynamique produit
+  maintenant le même bloc riche que le HTML de fallback local.
+- Vérification PageSpeed/Edge : le site ne charge pas les domaines publicitaires
+  signalés dans l'arborescence réseau PageSpeed ; les seules ressources
+  observées côté site sont les images locales, `site.js` et `/api/content`.
+
 ## 2026-05-21
 
 ### Compatibilité OVH mutualisé PHP 8
