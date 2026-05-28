@@ -238,22 +238,12 @@
     .btn-yt { background: #ff0000; color: #fff; display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; font-size: .9rem; padding: .85rem 1.8rem; border-radius: 30px; text-decoration: none; transition: background .2s, transform .2s; }
     .btn-yt:hover { background: #cc0000; transform: translateY(-2px); }
     .insta-block { margin-top: 4rem; }
-    .insta-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .insta-head { margin-bottom: 1.2rem; }
     .insta-kicker { color: var(--teal2); font-size: .72rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: .35rem; }
     .insta-title { color: #fff; font-family: var(--font-h); font-size: 2rem; line-height: 1.1; }
-    .insta-actions { display: flex; gap: .6rem; flex-shrink: 0; }
-    .insta-nav { width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 1.25rem; cursor: pointer; transition: background .2s, transform .2s; }
-    .insta-nav:hover { background: rgba(255,255,255,.16); transform: translateY(-1px); }
-    .insta-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 31%); gap: 1rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: .4rem; }
-    .insta-track::-webkit-scrollbar { display: none; }
-    .insta-card { position: relative; display: grid; grid-template-rows: auto 1fr; border-radius: 14px; overflow: hidden; text-decoration: none; color: #fff; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); scroll-snap-align: start; }
-    .insta-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; transition: transform .35s, opacity .35s; }
-    .insta-card:hover img { transform: scale(1.035); opacity: .86; }
-    .insta-body { min-height: 150px; padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end; }
-    .insta-tag { align-self: flex-start; margin-bottom: .7rem; padding: .25rem .65rem; border-radius: 999px; background: rgba(244,100,27,.18); color: var(--gold); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-    .insta-card strong { display: block; font-size: 1.05rem; line-height: 1.3; margin-bottom: .4rem; }
-    .insta-card span:last-child { color: rgba(255,255,255,.72); font-size: .86rem; line-height: 1.55; }
-    .insta-cta { margin-top: 1rem; display: inline-flex; align-items: center; color: var(--gold); font-weight: 700; text-decoration: none; }
+    .insta-panel { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 1.6rem; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); }
+    .insta-copy { color: rgba(255,255,255,.72); font-size: .95rem; line-height: 1.65; max-width: 620px; }
+    .insta-cta { display: inline-flex; align-items: center; flex-shrink: 0; color: var(--gold); font-weight: 700; text-decoration: none; }
     .insta-cta:hover { color: #ffd98a; }
 
     /* ── BÉNÉVOLAT ── */
@@ -321,8 +311,7 @@
       section { padding: 4rem 0; }
       .videos-grid { grid-template-columns: 1fr 1fr; }
       .video-card.featured { grid-column: span 2; }
-      .insta-head { align-items: flex-start; flex-direction: column; }
-      .insta-track { grid-auto-columns: minmax(230px, 46%); }
+      .insta-panel { align-items: flex-start; flex-direction: column; }
       .event-inner { grid-template-columns: 1fr; }
       .event-visual { display: none; }
       .event-photo { width: 100%; max-width: 100%; margin-top: 1.5rem; }
@@ -332,7 +321,6 @@
     @media (max-width: 480px) {
       .videos-grid { grid-template-columns: 1fr; }
       .video-card.featured { grid-column: span 1; }
-      .insta-track { grid-auto-columns: 88%; }
       .about-values { grid-template-columns: 1fr; }
     }
   </style>
@@ -489,26 +477,13 @@
     </div>
     <div class="insta-block reveal" aria-labelledby="insta-title">
       <div class="insta-head">
-        <div>
-          <p class="insta-kicker">Sur Instagram</p>
-          <h3 class="insta-title" id="insta-title">Dans les coulisses</h3>
-        </div>
-        <div class="insta-actions" aria-label="Navigation du carrousel Instagram">
-          <button class="insta-nav" type="button" data-insta-prev aria-label="Publication précédente">‹</button>
-          <button class="insta-nav" type="button" data-insta-next aria-label="Publication suivante">›</button>
-        </div>
+        <p class="insta-kicker">Sur Instagram</p>
+        <h3 class="insta-title" id="insta-title">Dans les coulisses</h3>
       </div>
-      <div class="insta-track" id="insta-track">
-        <a class="insta-card" href="https://www.instagram.com/histoiresdeq/p/DYkJtKmt_o-/" target="_blank" rel="noopener">
-          <img src="https://scontent-cdg4-2.cdninstagram.com/v/t51.82787-15/704247454_18120221644709693_8281258221427833093_n.jpg?stp=c270.0.810.810a_dst-jpg_e35_s640x640_tt6&amp;_nc_cat=107&amp;ccb=7-5&amp;_nc_sid=18de74&amp;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&amp;_nc_ohc=f6Tq8UU-sckQ7kNvwGVhTmH&amp;_nc_oc=AdrWYFpY4nldxYyI4f7y4kvs6gsxBD5HeVNI68wyEaibBXzNU3UKFM_x484j0M4UEsM&amp;_nc_zt=23&amp;_nc_ht=scontent-cdg4-2.cdninstagram.com&amp;_nc_gid=YzgOgToM4O0b-_lNcbbFBw&amp;_nc_ss=7d60f&amp;oh=00_Af5sXuFvp_mmu6I4Ej6qqdtiaUGanVl0Jk0no6CSHKc5_A&amp;oe=6A14E4E3" alt="Publication Instagram Histoires de Q - dernières places disponibles" loading="lazy">
-          <span class="insta-body">
-            <span class="insta-tag">20 mai 2026</span>
-            <strong>Dernières places disponibles pour Histoires de Q n°28</strong>
-            <span>Programmation du cabaret du vendredi 22 mai à La Bellevilloise.</span>
-          </span>
-        </a>
+      <div class="insta-panel">
+        <p class="insta-copy">Les annonces, photos de soirées et infos de dernière minute sont publiées directement sur Instagram.</p>
+        <a class="insta-cta" href="https://www.instagram.com/histoiresdeq/" target="_blank" rel="noopener">Voir le compte Instagram →</a>
       </div>
-      <a class="insta-cta" href="https://www.instagram.com/histoiresdeq/" target="_blank" rel="noopener">Voir le compte Instagram →</a>
     </div>
   </section>
 
@@ -594,6 +569,6 @@
     </div>
   </footer>
 
-  <script src="js/site.js?v=7" defer></script>
+  <script src="js/site.js?v=8" defer></script>
 </body>
 </html>

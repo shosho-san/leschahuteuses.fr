@@ -58,30 +58,11 @@ src/private/
 src/uploads/
 ```
 
-## Instagram automatique
+## Instagram
 
-Le carrousel Instagram appelle `/api/instagram`. Pour récupérer automatiquement
-les dernières publications, créer sur OVH un fichier privé non versionné :
-
-```text
-src/private/instagram.php
-```
-
-Contenu attendu :
-
-```php
-<?php
-return [
-  'ig_user_id' => 'ID_DU_COMPTE_INSTAGRAM',
-  'access_token' => 'TOKEN_META_LONG_LIVED',
-  'limit' => 6,
-  'cache_ttl' => 3600,
-];
-```
-
-Le token reste côté serveur. PHP met les résultats en cache dans
-`src/private/instagram-cache.json`. Si la configuration manque ou si l'API échoue,
-le site garde une carte de secours.
+La section Instagram est volontairement simple : elle affiche un lien direct vers
+le compte `@histoiresdeq`. Le site n'appelle plus l'API Graph Meta et ne dépend
+plus de token, cache serveur ou URL d'image Instagram temporaire.
 
 ## Structure
 

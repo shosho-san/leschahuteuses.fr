@@ -369,66 +369,6 @@
     if (empty) empty.classList.toggle('visible', visible === 0);
   }
 
-  // ── Carrousel Instagram ───────────────────────────────────────────────────
-  function formatInstagramDate(iso) {
-    var d = new Date(iso);
-    if (isNaN(d.getTime())) return 'Instagram';
-    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-  }
-
-  function instagramCard(post) {
-    var a = el('a', 'insta-card');
-    a.href = post.permalink || 'https://www.instagram.com/histoiresdeq/';
-    a.target = '_blank';
-    a.rel = 'noopener';
-
-    var img = document.createElement('img');
-    img.src = post.image || '';
-    img.alt = post.title || 'Publication Instagram Histoires de Q';
-    img.loading = 'lazy';
-    a.appendChild(img);
-
-    var body = el('span', 'insta-body');
-    body.appendChild(el('span', 'insta-tag', formatInstagramDate(post.timestamp)));
-    body.appendChild(el('strong', null, post.title || 'Publication Instagram'));
-    body.appendChild(el('span', null, post.description || 'Voir la publication sur Instagram.'));
-    a.appendChild(body);
-    return a;
-  }
-
-  function loadInstagramFeed() {
-    var track = document.getElementById('insta-track');
-    if (!track) return Promise.resolve();
-
-    return fetch('/api/instagram', { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('instagram'); return r.json(); })
-      .then(function (data) {
-        var posts = Array.isArray(data && data.posts) ? data.posts : [];
-        if (!posts.length) return;
-        track.textContent = '';
-        posts.forEach(function (post) { track.appendChild(instagramCard(post)); });
-      })
-      .catch(function () { /* on garde la carte statique de secours */ });
-  }
-
-  function setupInstagramCarousel() {
-    var track = document.getElementById('insta-track');
-    if (!track) return;
-
-    function step(dir) {
-      var card = track.querySelector('.insta-card');
-      var amount = card ? card.getBoundingClientRect().width + 16 : track.clientWidth * 0.8;
-      track.scrollBy({ left: dir * amount, behavior: 'smooth' });
-    }
-
-    var prev = document.querySelector('[data-insta-prev]');
-    var next = document.querySelector('[data-insta-next]');
-    var actions = document.querySelector('.insta-actions');
-    if (actions && track.scrollWidth <= track.clientWidth + 1) actions.style.display = 'none';
-    if (prev) prev.addEventListener('click', function () { step(-1); });
-    if (next) next.addEventListener('click', function () { step(1); });
-  }
-
   // ── Mode édition (chargé seulement pour une éditrice connectée) ────────────
   function maybeLoadEditor() {
     if (/(?:^|;\s*)co_editor=1(?:;|$)/.test(document.cookie)) {
@@ -459,10 +399,6 @@
     .then(function () {
       setupNav();
       filterRecentVideos();
-      return loadInstagramFeed();
-    })
-    .then(function () {
-      setupInstagramCarousel();
       observeReveals();
       maybeLoadEditor();
     });
