@@ -3,9 +3,17 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
-RewriteCond %{HTTPS} !=on [OR]
-RewriteCond %{HTTP_HOST} !^www\.leschahuteuses\.fr$ [NC]
+RewriteCond %{HTTP_HOST} ^leschahuteuses\.fr$ [NC]
 RewriteRule ^ https://www.leschahuteuses.fr%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} ^www\.leschahuteuses\.fr$ [NC]
+RewriteRule ^ https://www.leschahuteuses.fr%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} !^www\.leschahuteuses\.fr$ [NC]
+RewriteCond %{HTTP_HOST} !^leschahuteuses\.fr$ [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 RewriteRule ^favicon\.ico$ img/logo.png [L]
 
