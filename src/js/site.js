@@ -187,7 +187,7 @@
         '@id': 'https://www.leschahuteuses.fr/#organization',
         name: 'Les Chahuteuses',
         url: 'https://www.leschahuteuses.fr/',
-        logo: 'https://www.leschahuteuses.fr/img/logo.png',
+        logo: 'https://www.leschahuteuses.fr/img/logo-320.png',
         foundingDate: '2014',
         description: 'Association d\'éducation populaire qui organise à Paris des cabarets, ateliers et événements autour du corps, du consentement et des sexualités joyeuses.',
         email: 'leschahuteuses@gmail.com',
@@ -262,8 +262,20 @@
     var events = upcomingEvents();
 
     if (!events.length) {
-      root.appendChild(el('div', 'event-empty reveal',
-        'Pas de date programmée pour le moment — revenez bientôt, ou suivez-nous sur les réseaux !'));
+      var inner = el('div', 'event-inner reveal');
+      var col = document.createElement('div');
+      col.appendChild(el('p', 'event-label', 'À venir'));
+      col.appendChild(el('h2', 'event-title', 'Prochaine date à venir'));
+      col.appendChild(el('p', 'event-desc',
+        'Pas de date programmée pour le moment. Suivez-nous sur les réseaux ou inscrivez-vous à la newsletter pour recevoir les prochaines annonces à Paris.'));
+      var btn = el('a', 'btn btn-event', 'Recevoir les prochaines dates');
+      btn.href = 'https://leschahuteuses.us9.list-manage.com/subscribe?u=a6bd7fdcb256db092e9b8d572&id=af402a1306';
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      col.appendChild(btn);
+      inner.appendChild(col);
+      inner.appendChild(el('div', 'event-visual', '🎭'));
+      root.appendChild(inner);
       return;
     }
 
