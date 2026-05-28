@@ -187,7 +187,7 @@
         '@id': 'https://www.leschahuteuses.fr/#organization',
         name: 'Les Chahuteuses',
         url: 'https://www.leschahuteuses.fr/',
-        logo: 'https://www.leschahuteuses.fr/img/logo-320.png',
+        logo: 'https://www.leschahuteuses.fr/img/logo-280.png',
         foundingDate: '2014',
         description: 'Association d\'éducation populaire qui organise à Paris des cabarets, ateliers et événements autour du corps, du consentement et des sexualités joyeuses.',
         email: 'leschahuteuses@gmail.com',
