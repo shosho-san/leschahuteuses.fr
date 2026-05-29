@@ -26,6 +26,9 @@
 - Ajout de réponses `410 Gone` pour les anciennes URLs WordPress techniques
   (`/wp-admin/`, `/wp-content/`, `/wp-includes/`, `/wp-json/`, `/feed/`) afin
   d'aider Google à les retirer des rapports Search Console.
+- Ajout de réponses `410 Gone` pour les anciennes pages WordPress indexées sans
+  équivalent dans la nouvelle vitrine : `/communication-graphiste/`,
+  `/communication-creation-de-contenu/` et `/page-d-exemple/`.
 
 ## 2026-05-21
 

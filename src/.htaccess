@@ -45,6 +45,7 @@ RewriteRule ^sitemap\.xml$ - [R=404,L]
 # Anciennes URLs WordPress : indiquer explicitement que ces endpoints ont disparu.
 RewriteRule ^wp-(admin|content|includes|json)(/.*)?$ - [G,L]
 RewriteRule ^feed/?$ - [G,L]
+RewriteRule ^(communication-graphiste|communication-creation-de-contenu|page-d-exemple)/?$ - [G,L]
 
 RewriteRule ^le-cabaret-du-chahut/?$ /#formats [R=301,L,NE]
 RewriteRule ^nos-formats/le-cabaret-du-chahut/?$ /#formats [R=301,L,NE]
