@@ -23,6 +23,9 @@
 - Vérification PageSpeed/Edge : le site ne charge pas les domaines publicitaires
   signalés dans l'arborescence réseau PageSpeed ; les seules ressources
   observées côté site sont les images locales, `site.js` et `/api/content`.
+- Ajout de réponses `410 Gone` pour les anciennes URLs WordPress techniques
+  (`/wp-admin/`, `/wp-content/`, `/wp-includes/`, `/wp-json/`, `/feed/`) afin
+  d'aider Google à les retirer des rapports Search Console.
 
 ## 2026-05-21
 
